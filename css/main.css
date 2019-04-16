@@ -1,0 +1,183 @@
+body{
+  padding: 0;
+  margin: 0;
+  transition: background-color .5s ease;
+  background-color: #3bd0fa;
+}
+
+.won { 
+  background-color: #8FBE00; 
+}
+
+.lost { 
+  background-color: #E22D2D; 
+}
+
+
+
+
+
+.textual {
+  width: 400px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.option,
+.socket {
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #aaa;
+}
+
+#guesses {
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 3px 0 0 3px;
+  padding: 15px 30px;
+  font-size: 0;
+  border: 2px solid #893417;
+}
+
+.option,
+.code .socket,
+.guess .socket {
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+}
+
+.code {
+  border-bottom: 2px solid #333;
+}
+
+.secret {
+  color: #333;
+  text-align: center;
+  line-height: 40px;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.socket.peg {
+  -webkit-animation: fadeIn .4s;
+  -o-animation: fadeIn .4s;
+  animation: fadeIn .4s;
+}
+
+@-webkit-keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/******************* HINTS *******************/
+#hints {
+  border-top: 2px solid #893417;
+  border-bottom: 2px solid #893417;
+  border-left: 2px solid #893417;
+  background-color: #f74541;
+  font-size: 0;
+  width: 50px;
+}
+
+.hint {
+  margin: 12px 0;
+}
+
+.hint .socket {
+  width: 10px;
+  height: 10px;
+}
+
+.hit { background-color: #000; }
+.almost { background-color: #fff; }
+
+#modalMessage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  width: 630px;
+  z-index: 999;
+  opacity: 1;
+  border-radius: 5px;
+  text-align: center;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#modalOverlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  z-index: 998;
+  opacity: 0;
+  transition: all .3s ease;
+}
+
+#modalOverlay.hidden {
+  visibility: hidden;
+}
+
+#modalOverlay.won {
+  background-color: rgba(143, 190, 0, .5);
+  visibility: visible;
+  opacity: 1;
+}
+
+#modalOverlay.won #modalMessage {
+  background-color: #8FBE00;
+  border: 5px solid #fff;
+}
+
+#modalOverlay.lost {
+  background-color: rgba(226, 45, 45, .5);
+  visibility: visible;
+  opacity: 1;
+}
+
+#modalOverlay.lost #modalMessage {
+  background-color: #E22D2D;
+  border: 5px dotted #fff;
+}
+
+#options {
+  display: block;
+  font-size: 0;
+}
+.option:focus{
+  outline: none;
+}
+
+
+button.large {
+  padding: 15px 20px;
+}
+
+button.primary {
+  color: #8FBE00;
+}
+
+#delete {
+  font-size: 16px;
+  background-color: #efefef;
+}
+
+/************* Colors *************/
+
+.green { background: #8FBE00; }
+.red { background: #f74541; }
+.blue { background: #008C9E; }
+.yellow { background: #fad000; }
+.black { background: #191919; }
+.purple { background: #993394; }
+.brown { background: #6b4d39; }
+.white { background: #fff; }
+
+
