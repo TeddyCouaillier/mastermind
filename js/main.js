@@ -107,11 +107,11 @@
   }
 
   /* **************************************
-  *******  COMPARAISON DES COULEURS
+  *******  TRAITEMENT DES SOCKETS
   ************************************** */
-  /* Test de la bonne place des couleurs
-   * Test de la presence des couleurs
-   * return vrai si c'est exact, faux sinon */
+  /* Insertion
+   * Suppression du dernier element
+   */
   
   function insertPeg(type) {
     var sockets = hintContainer[hintContainer.length - hintIncrement].getElementsByClassName('js-hint-socket');
@@ -121,26 +121,46 @@
   function deleteLast() {
     if (choice.length !== 0) {
       var slots = inputRows[inputRows.length - rowIncrement].getElementsByClassName('socket');
-      slots[choice.length - 1].className = 'socket'; // Insertion du socket dans la page
+      slots[choice.length - 1].className = 'socket';
       choice.pop();
     }
   }
 
+  /* **************************************
+  *******         NEW GAME
+  ************************************** */
+  /* Clear/Reset des choix
+   * Clear/Reset du jeu
+   * Replacement au début
+   * Cache le modal de victoire/défaite
+   * Initialise le nouveau jeu
+   * */
+
   function newGame() {
-    choice = []; // Reset des choix
+    choice = [];
     clearBoard();
-    rowIncrement = 1; // Retour à la ligne 1
-    hintIncrement = 1; // Retour à la case 1
+    rowIncrement = 1; 
+    hintIncrement = 1; 
     hideModal();
-    gameSetup(); // Initialise le jeu
+    gameSetup();
   }
 
+  /* **************************************
+  *******          CLEARS
+  ************************************** */
+  /* Function cache du modal de victoire/défaite
+   * Function du clear/reset du jeu
+   * -> Nettoie le jeu
+   * -> Nettoie les sockets
+   * -> Reset le code secret
+   * -> Changement du background
+   * */
+  
   function hideModal() {
     modalOverlay.className = '';
   }
 
   function clearBoard() {
-    // Nettoie le jeu
     for (var i = 0; i < inputRows.length; i++) {
       inputRows[i].innerHTML = '';
       for (var j = 0; j < 4; j++) {
@@ -150,7 +170,6 @@
       }
     }
 
-    // Nettoie les sockets
     for (var i = 0; i < hintContainer.length; i++) {
       var socketCollection = hintContainer[i].getElementsByClassName('socket');
       for (var j = 0; j < 4; j++) {
@@ -158,7 +177,6 @@
       }
     }
 
-    // Reset le code secret
     for (var i = 0; i < secretSockets.length; i++) {
       secretSockets[i].className = 'secret socket';
       secretSockets[i].innerHTML = '?';
@@ -167,6 +185,15 @@
     document.getElementsByTagName('body')[0].className = '';
   }
 
+  /* **************************************
+  *******          END GAME
+  ************************************** */
+  /* Creation du code secret
+   * Revelation du code secret
+   * Fin du jeu
+   * Etat du jeu
+   *  -> Affichage des modals win || lose 
+   * */
   function generateSecretCode(min, max) {
     for (var i = 0; i < 4; i++)
       code[i] = Math.floor(Math.random() * (max - min)) + min;
@@ -196,10 +223,9 @@
       document.getElementById('restartGame').onclick = newGame;
       document.getElementById('hideModal').onclick = hideModal;
     } else
-
       modalMessage.innerHTML = '<img src="./img/lose1.gif"><br><br> <button class="large" id="hideModal">OK</button> <button id="restartGame" class="large primary">Restart</button>';
-    document.getElementById('restartGame').onclick = newGame;
-    document.getElementById('hideModal').onclick = hideModal;
+      document.getElementById('restartGame').onclick = newGame;
+      document.getElementById('hideModal').onclick = hideModal;
   }
 
   gameSetup(); 
