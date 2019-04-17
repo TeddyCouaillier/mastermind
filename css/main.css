@@ -5,6 +5,19 @@ body{
   background-color: #3bd0fa;
 }
 
+#main{
+  visibility: hidden;
+}
+
+#preload{
+  height: 100%;
+  width: 100%;
+}
+
+#preload button{
+
+}
+
 .won { 
   background-color: #8FBE00; 
 }

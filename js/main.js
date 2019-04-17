@@ -1,3 +1,9 @@
+function launch(){
+  var preload = document.getElementById('preload');
+  preload.style.display = "none";
+  document.getElementById('main').style.visibility = "visible";
+}
+  
   /* *************************************************
   *************         INDEX
   ************************************************* */
@@ -256,3 +262,4 @@
 
   gameSetup(); 
 }());
+

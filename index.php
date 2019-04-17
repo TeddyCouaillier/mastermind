@@ -7,6 +7,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, user-scalable=no">
 
+    <link rel="icon" type="image/png" href="img/icon.png" />
+
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -15,7 +17,8 @@
 </head>
 
 <body>
-    <div class="row mx-auto">
+    <div class="text-center" id="preload"><button class="btn btn-danger my-5" onclick="launch()">START</div>
+    <div class="row mx-auto" id="main">
         <div class="col-lg-4"></div>
         <div class="col">
             <div class="text-center">
