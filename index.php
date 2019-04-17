@@ -14,14 +14,27 @@
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/main.css">
+
+    <!-- EFFETS SONORES -->
+    <audio src="sound/blop.mp3" volume="0.5" id="blop"></audio>
+    <audio src="sound/win1.mp3" volume="0.5" id="win1"></audio>
+    <audio src="sound/win2.mp3" volume="0.5" id="win2"></audio>
+    <audio src="sound/lose1.mp3" volume="0.5" id="lose1"></audio>
+    <audio src="sound/lose2.mp3" volume="0.5" id="lose2"></audio>
 </head>
 
 <body>
-    <div class="text-center" id="preload"><button class="btn btn-danger my-5" onclick="launch()">START</div>
+    <!--  <div class="d-flex flex-column justify-content-center align-items-center niveau">
+    <div class="text-center" class="preload"><button class="btn btn-danger my-5" onclick="launch()">FACILE</div>
+    <div class="text-center" id="preload"><button class="btn btn-danger my-5" onclick="launch()">NORMAL</div>
+    <div class="text-center" id="preload"><button class="btn btn-danger my-5" onclick="launch()">DIFFICILE</div>
+    </div>
+   -->
     <div class="row mx-auto" id="main">
         <div class="col-lg-4"></div>
         <div class="col">
             <div class="text-center">
+                <!-- Restart game -->
                 <button id="newGame" class="btn m-3 yellow font-weight-bold shadow">Restart</button>
 
                 <div class="d-flex flex-row justify-content-center ">
@@ -72,16 +85,16 @@
                 </div>
 
                 <!-- //////////////////////////////////////
-                /////           ETAT DU JEU
+                /////         CHOIX DU JOUEURS
                 /////////////////////////////////////// -->
                 <div id="options" class="container py-2 my-0 text-center">
                     <button value="1" id="green" class="btn mx-1 shadow option green"></button>
                     <button value="2" id="purple" class="btn mx-1 shadow option purple"></button>
                     <button value="3" id="red" class="btn mx-1 shadow option red"></button>
                     <button value="4" id="yellow" class="btn mx-1 shadow option yellow"></button>
-                   <!-- <button value="5" id="blue" class="btn mx-1 shadow option blue"></button>
-                    <button value="6" id="brown" class="btn mx-1 shadow option brown"></button><br>-->
-                    <button id="delete" class="btn my-2 shadow"><i class="fas fa-reply"></i></button>
+                    <!-- <button value="5" id="blue" class="btn mx-1 shadow option blue"></button>
+                    <button value="6" id="brown" class="btn mx-1 shadow option brown"></button>-->
+                    <br><button id="delete" class="btn my-2 shadow"><i class="fas fa-reply"></i></button>
                 </div>
 
                 <!-- //////////////////////////////////////
@@ -96,31 +109,27 @@
             </div>
         </div>
         <div class="col-lg-4">
-
+            <!-- //////////////////////////////////////
+            /////          REGLES DU JEU
+            /////////////////////////////////////// -->
             <div class="m-5 bg-light text-center p-3 rules">
-                    <p class="">
-                        <h2>Regle du jeu</h2>
-                        Le but du jeu est de deviner le code secret en plusieurs étapes. <br>
-                        Il faut placer les bonnes couleurs à la bonne position. <br><br>
-                        Signifie qu'un pion est de la bonne couleur et bien placé.<br>        
-                        <img src="./img/hit.png" class="rounded-circle"><br><br>
-                        Signifie qu'un pion est de la bonne couleur mais mal placé.<br>    
-                        <img src="./img/almost.png" class="rounded-circle"><br><br>
-                                
-                                <small>Il n'y a aucun indice sur la position du pion.</small>
-                    </p>
-                        
-                
-                </div>
-
+                <p class="">
+                    <h2>Regle du jeu</h2>
+                    Le but du jeu est de deviner le code secret en plusieurs étapes. <br>
+                    Il faut placer les bonnes couleurs à la bonne position. <br><br>
+                    Signifie qu'un pion est de la bonne couleur et bien placé.<br>
+                    <img src="./img/hit.png" class="rounded-circle"><br><br>
+                    Signifie qu'un pion est de la bonne couleur mais mal placé.<br>
+                    <img src="./img/almost.png" class="rounded-circle"><br><br>
+                    <small>Il n'y a aucun indice sur la position du pion.</small>
+                </p>
+            </div>
         </div>
     </div>
 
-
-
     <!-- //////////////////////////////////////
-        /////     DECLARATION DES SCRIPTS
-        /////////////////////////////////////// -->
+    /////     DECLARATION DES SCRIPTS
+    /////////////////////////////////////// -->
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">

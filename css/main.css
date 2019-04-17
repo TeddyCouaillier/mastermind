@@ -1,16 +1,33 @@
+/* *************************************************
+*************         INDEX
+************************************************* */
+/* ------------------------------------------------- 
+ * ---------------    1.GLOBAL     -----------------
+ * ---------------    2.GAME       -----------------
+ * ---------------    3.CHOICES    -----------------
+ * ---------------    4.STATE      -----------------
+ * ---------------    5.END-GAME   -----------------
+ * ---------------    6.RULES      -----------------
+ * ---------------    7.COLORS     -----------------
+ * -------------------------------------------------
+ */
+
+/* **************************************
+*******         1.GLOBAL
+************************************** */   
 body{
   padding: 0;
   margin: 0;
   transition: background-color .5s ease;
   background-color: #3bd0fa;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #main{
-  visibility: hidden;
 }
 
-#preload{
-  height: 100%;
+#niveau{
+  
   width: 100%;
 }
 
@@ -18,20 +35,9 @@ body{
 
 }
 
-.won { 
-  background-color: #8FBE00; 
-}
-
-.lost { 
-  background-color: #E22D2D; 
-}
-
-.textual {
-  width: 400px;
-  display: inline-block;
-  vertical-align: top;
-}
-
+/* **************************************
+*******           2.GAME
+************************************** */   
 .option,
 .circle {
   display: inline-block;
@@ -77,7 +83,25 @@ body{
 @-webkit-keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-/******************* STATUS *******************/
+/* **************************************
+*******       3.CHOICES USERS
+************************************** */   
+#options {
+  display: block;
+  font-size: 0;
+}
+.option:focus{
+  outline: none;
+}
+
+#delete {
+  font-size: 16px;
+  background-color: #efefef;
+}
+
+/* **************************************
+*******           4.STATE
+************************************** */   
 #status {
   border-top: 2px solid #893417;
   border-bottom: 2px solid #893417;
@@ -98,6 +122,17 @@ body{
 
 .hit { background-color: #000; }
 .almost { background-color: #fff; }
+
+/* **************************************
+*******          5.END-GAME
+************************************** */   
+.won { 
+  background-color: #8FBE00; 
+}
+
+.lost { 
+  background-color: #E22D2D; 
+}
 
 #modalMessage {
   position: fixed;
@@ -156,15 +191,6 @@ body{
   border: 5px solid #fff;
 }
 
-#options {
-  display: block;
-  font-size: 0;
-}
-.option:focus{
-  outline: none;
-}
-
-
 button.large {
   padding: 15px 20px;
 }
@@ -173,23 +199,21 @@ button.primary {
   color: #8FBE00;
 }
 
-#delete {
-  font-size: 16px;
-  background-color: #efefef;
-}
-
-/************* Rules *************/
+/* **************************************
+*******           6.RULES
+************************************** */   
 .rules{
   border-radius: 30px;
   background: rgb(255,183,107);
-background: -moz-linear-gradient(-45deg, rgba(255,183,107,1) 0%, rgba(255,167,61,1) 50%, rgba(255,124,0,1) 51%, rgba(255,127,4,1) 100%);
-background: -webkit-linear-gradient(-45deg, rgba(255,183,107,1) 0%,rgba(255,167,61,1) 50%,rgba(255,124,0,1) 51%,rgba(255,127,4,1) 100%);
-background: linear-gradient(135deg, rgba(255,183,107,1) 0%,rgba(255,167,61,1) 50%,rgba(255,124,0,1) 51%,rgba(255,127,4,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', endColorstr='#ff7f04',GradientType=1 );
+  background: -moz-linear-gradient(-45deg, rgba(255,183,107,1) 0%, rgba(255,167,61,1) 50%, rgba(255,124,0,1) 51%, rgba(255,127,4,1) 100%);
+  background: -webkit-linear-gradient(-45deg, rgba(255,183,107,1) 0%,rgba(255,167,61,1) 50%,rgba(255,124,0,1) 51%,rgba(255,127,4,1) 100%);
+  background: linear-gradient(135deg, rgba(255,183,107,1) 0%,rgba(255,167,61,1) 50%,rgba(255,124,0,1) 51%,rgba(255,127,4,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', endColorstr='#ff7f04',GradientType=1 );
 }
 
-/************* Colors *************/
-
+/* **************************************
+*******           7.COLORS
+************************************** */   
 .green { background: #8FBE00; }
 .red { background: #f74541; }
 .blue { background: #008C9E; }

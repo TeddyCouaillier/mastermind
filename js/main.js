@@ -1,21 +1,23 @@
-function launch(){
+/* Début de test niveaux
+
+  function launchS(){
   var preload = document.getElementById('preload');
   preload.style.display = "none";
-  document.getElementById('main').style.visibility = "visible";
-}
+  document.getElementById('main').style.display = "block";
+}*/
   
   /* *************************************************
   *************         INDEX
   ************************************************* */
   /* ------------------------------------------------- 
-   * ---------- INITIALISATION DES VAR ---------------
-   * ---------- INITIALISATION DU JEU  ---------------
-   * ---------- INSERTION DES COULEURS ---------------
-   * ---------- COMPARAISON COULEURS   ---------------
-   * ---------- TRAITEMENT DES CERCLES ---------------
-   * ---------- NEW GAME               ---------------
-   * ---------- CLEARS                 ---------------
-   * ---------- END GAME               ---------------
+   * ---------- 1.INITIALISATION DES VAR -------------
+   * ---------- 2.INITIALISATION DU JEU  -------------
+   * ---------- 3.INSERTION DES COULEURS -------------
+   * ---------- 4.COMPARAISON COULEURS   -------------
+   * ---------- 5.TRAITEMENT DES CERCLES -------------
+   * ---------- 6.NEW GAME               -------------
+   * ---------- 7.CLEARS                 -------------
+   * ---------- 8.END GAME               -------------
    * -------------------------------------------------
    */
 
@@ -23,10 +25,10 @@ function launch(){
   'use strict';
 
   /* **************************************
-  *******    INITIALISATION DES VAR
+  *******    1.INITIALISATION DES VAR
   ************************************** */
   /* Initialisation des choix
-   * Recuperation de les class/id
+   * Recuperation des class/id
    * Initialisation des couleurs */
 
   var result = [],
@@ -37,6 +39,11 @@ function launch(){
     secretCercles = document.getElementsByClassName('secret circle'),
     modalOverlay = document.getElementById('modalOverlay'),
     modalMessage = document.getElementById('modalMessage'),
+    blop = document.getElementById('blop'),
+    win1 = document.getElementById('win1'),
+    win2 = document.getElementById('win2'),
+    lose1 = document.getElementById('lose1'),
+    lose2 = document.getElementById('lose2'),
     rowIncrement = 1,
     statIncrement = 1,
     pion = {
@@ -49,7 +56,7 @@ function launch(){
     };
 
   /* **************************************
-  *******    INITIALISATION DU JEU
+  *******    2.INITIALISATION DU JEU
   ************************************** */
    /* Generation du resultat secret
     * Animation de l'ajout de couleurs
@@ -67,7 +74,7 @@ function launch(){
   }
 
   /* **************************************
-  *******    INSERTION DES COULEURS
+  *******    3.INSERTION DES COULEURS
   ************************************** */
   /* Ajout de la couleur dans l'emplacement choisi
    * Comparaison avec le resultat :
@@ -79,10 +86,12 @@ function launch(){
     var self = this;
     var slots = inputRows[inputRows.length - rowIncrement].getElementsByClassName('circle');
 
-    slots[choice.length].className = slots[choice.length].className + ' pion ' + self.id; // Insert node into page
+    slots[choice.length].className = slots[choice.length].className + ' pion ' + self.id;
 
     choice.push(+(self.value));
-
+    setTimeout(function(){
+      blop.play();
+    },300);
     if (choice.length === 4) {
       if (compare())
         gameState('won');
@@ -95,7 +104,7 @@ function launch(){
   }
 
   /* **************************************
-  *******  COMPARAISON DES COULEURS
+  *******  4.COMPARAISON DES COULEURS
   ************************************** */
   /* Test de la bonne place des couleurs
    * Test de la presence des couleurs
@@ -128,7 +137,7 @@ function launch(){
   }
 
   /* **************************************
-  *******  TRAITEMENT DES CERCLES
+  *******  5.TRAITEMENT DES CERCLES
   ************************************** */
   /* Insertion
    * Suppression du dernier element
@@ -148,7 +157,7 @@ function launch(){
   }
 
   /* **************************************
-  *******         NEW GAME
+  *******         6.NEW GAME
   ************************************** */
   /* Clear/Reset des choix
    * Clear/Reset du jeu
@@ -167,7 +176,7 @@ function launch(){
   }
 
   /* **************************************
-  *******          CLEARS
+  *******         7.CLEARS
   ************************************** */
   /* Function cache du modal de victoire/défaite
    * Function du clear/reset du jeu
@@ -207,13 +216,14 @@ function launch(){
   }
 
   /* **************************************
-  *******          END GAME
+  *******          8.END GAME
   ************************************** */
   /* Creation du resultat
    * Revelation du resultat
    * Fin du jeu
    * Etat du jeu
    *  -> Affichage des modals win || lose 
+   *  -> Ajout des effets sonores
    * */
 
   function generateSecretResult(min, max) {
@@ -238,26 +248,34 @@ function launch(){
 
   function modalStatus(stat){
     var n = Math.floor(Math.random() * 4 + 1);
-    console.log(n);
     var lose_html = '<h2>PERDU</h2><img src="./img/lose'+n+'.gif" class="rounded shadow"><br><br> <button class="btn btn-light" id="hideModal">OK</button> <button id="restartGame" class="btn btn-light">Restart</button>';
     var win_html = '<h2>GAGNE</h2><img src="./img/win'+n+'.gif" class="rounded shadow"><br><br> <button class="btn btn-light" id="hideModal">OK</button> <button id="restartGame" class="btn btn-light">Restart</button>';
-
     return (stat ? win_html : lose_html);
+  }
+
+  function playSound(test_state,alea_sound){
+    if(test_state === true)
+      return alea_sound === 1 ? win1.play() : win2.play();
+    else
+      return alea_sound === 1 ? lose1.play() : lose2.play();
   }
 
   function gameState(state) {
     gameOver();
     document.getElementsByTagName('body')[0].className = state;
     modalOverlay.className = state;
-
+    var sound_state = Math.floor(Math.random()*2)+1;
     if (state === 'won') {
+      playSound(true, sound_state);
       modalMessage.innerHTML = modalStatus(true);
       document.getElementById('restartGame').onclick = newGame;
       document.getElementById('hideModal').onclick = hideModal;
-    } else
+    } else{
+      playSound(false, sound_state);
       modalMessage.innerHTML = modalStatus(false);
       document.getElementById('restartGame').onclick = newGame;
       document.getElementById('hideModal').onclick = hideModal;
+    }
   }
 
   gameSetup(); 
