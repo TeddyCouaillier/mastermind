@@ -1,24 +1,39 @@
+  /* *************************************************
+  *************         INDEX
+  ************************************************* */
+  /* ------------------------------------------------- 
+   * ---------- INITIALISATION DES VAR ---------------
+   * ---------- INITIALISATION DU JEU  ---------------
+   * ---------- INSERTION DES COULEURS ---------------
+   * ---------- COMPARAISON COULEURS   ---------------
+   * ---------- TRAITEMENT DES CERCLES ---------------
+   * ---------- NEW GAME               ---------------
+   * ---------- CLEARS                 ---------------
+   * ---------- END GAME               ---------------
+   * -------------------------------------------------
+   */
+
 (function () {
   'use strict';
 
   /* **************************************
-  *******    INITILISATION DU JEU
+  *******    INITIALISATION DES VAR
   ************************************** */
   /* Initialisation des choix
    * Recuperation de les class/id
    * Initialisation des couleurs */
 
-  var code = [], // Les couleurs disponibles
-    choice = [], // Les couleurs choisies
+  var result = [],
+    choice = [], 
     options = document.getElementsByClassName('option'),
     inputRows = document.getElementsByClassName('choice'),
-    hintContainer = document.getElementsByClassName('hint'),
-    secretSockets = document.getElementsByClassName('secret socket'),
+    statContainer = document.getElementsByClassName('stat'),
+    secretCercles = document.getElementsByClassName('secret circle'),
     modalOverlay = document.getElementById('modalOverlay'),
     modalMessage = document.getElementById('modalMessage'),
     rowIncrement = 1,
-    hintIncrement = 1,
-    pegs = {
+    statIncrement = 1,
+    pion = {
       1: 'green',
       2: 'purple',
       3: 'red',
@@ -28,14 +43,14 @@
     };
 
   /* **************************************
-  *******    INITILISATION DU JEU
+  *******    INITIALISATION DU JEU
   ************************************** */
-   /* Generation du code secret
+   /* Generation du resultat secret
     * Animation de l'ajout de couleurs
     * Autres options onclic */
 
   function gameSetup() {
-    generateSecretCode(1, 7);
+    generateSecretResult(1, 4);
 
     for (var i = 0; i < options.length; i++) {
       options[i].addEventListener('click', insertChoice, false);
@@ -56,9 +71,9 @@
 
   function insertChoice() {
     var self = this;
-    var slots = inputRows[inputRows.length - rowIncrement].getElementsByClassName('socket');
+    var slots = inputRows[inputRows.length - rowIncrement].getElementsByClassName('circle');
 
-    slots[choice.length].className = slots[choice.length].className + ' peg ' + self.id; // Insert node into page
+    slots[choice.length].className = slots[choice.length].className + ' pion ' + self.id; // Insert node into page
 
     choice.push(+(self.value));
 
@@ -82,46 +97,46 @@
 
   function compare() {
     var isMatch = true;
-    var codeCopy = code.slice(0);
+    var resultCopy = result.slice(0);
 
-    for (var i = 0; i < code.length; i++) {
-      if (choice[i] === code[i]) {
-        insertPeg('hit');
-        codeCopy[i] = 0;
+    for (var i = 0; i < result.length; i++) {
+      if (choice[i] === result[i]) {
+        insertPion('hit');
+        resultCopy[i] = 0;
         choice[i] = -1;
       } else
         isMatch = false;
     }
 
-    for (var j = 0; j < code.length; j++) {
-      if (codeCopy.indexOf(choice[j]) !== -1) {
-        insertPeg('almost');
-        codeCopy[codeCopy.indexOf(choice[j])] = 0;
+    for (var j = 0; j < result.length; j++) {
+      if (resultCopy.indexOf(choice[j]) !== -1) {
+        insertPion('almost');
+        resultCopy[resultCopy.indexOf(choice[j])] = 0;
       }
     }
 
-    hintIncrement += 1;
+    statIncrement += 1;
     choice = []; 
 
     return isMatch;
   }
 
   /* **************************************
-  *******  TRAITEMENT DES SOCKETS
+  *******  TRAITEMENT DES CERCLES
   ************************************** */
   /* Insertion
    * Suppression du dernier element
    */
   
-  function insertPeg(type) {
-    var sockets = hintContainer[hintContainer.length - hintIncrement].getElementsByClassName('js-hint-socket');
-    sockets[0].className = 'socket ' + type;
+  function insertPion(type) {
+    var circles = statContainer[statContainer.length - statIncrement].getElementsByClassName('stat-circle');
+    circles[0].className = 'circle ' + type;
   }
 
   function deleteLast() {
     if (choice.length !== 0) {
-      var slots = inputRows[inputRows.length - rowIncrement].getElementsByClassName('socket');
-      slots[choice.length - 1].className = 'socket';
+      var slots = inputRows[inputRows.length - rowIncrement].getElementsByClassName('circle');
+      slots[choice.length - 1].className = 'm-1 shadow circle';
       choice.pop();
     }
   }
@@ -140,7 +155,7 @@
     choice = [];
     clearBoard();
     rowIncrement = 1; 
-    hintIncrement = 1; 
+    statIncrement = 1; 
     hideModal();
     gameSetup();
   }
@@ -151,8 +166,8 @@
   /* Function cache du modal de victoire/défaite
    * Function du clear/reset du jeu
    * -> Nettoie le jeu
-   * -> Nettoie les sockets
-   * -> Reset le code secret
+   * -> Nettoie les cercles
+   * -> Reset le resultat
    * -> Changement du background
    * */
   
@@ -164,22 +179,22 @@
     for (var i = 0; i < inputRows.length; i++) {
       inputRows[i].innerHTML = '';
       for (var j = 0; j < 4; j++) {
-        var socket = document.createElement('div');
-        socket.className = 'socket';
-        inputRows[i].appendChild(socket);
+        var circle = document.createElement('div');
+        circle.className = 'circle shadow m-1';
+        inputRows[i].appendChild(circle);
       }
     }
 
-    for (var i = 0; i < hintContainer.length; i++) {
-      var socketCollection = hintContainer[i].getElementsByClassName('socket');
+    for (var i = 0; i < statContainer.length; i++) {
+      var circleCollection = statContainer[i].getElementsByClassName('circle');
       for (var j = 0; j < 4; j++) {
-        socketCollection[j].className = 'js-hint-socket socket';
+        circleCollection[j].className = 'stat-circle circle';
       }
     }
 
-    for (var i = 0; i < secretSockets.length; i++) {
-      secretSockets[i].className = 'secret socket';
-      secretSockets[i].innerHTML = '?';
+    for (var i = 0; i < secretCercles.length; i++) {
+      secretCercles[i].className = 'secret circle shadow m-1';
+      secretCercles[i].innerHTML = '?';
     }
 
     document.getElementsByTagName('body')[0].className = '';
@@ -188,21 +203,23 @@
   /* **************************************
   *******          END GAME
   ************************************** */
-  /* Creation du code secret
-   * Revelation du code secret
+  /* Creation du resultat
+   * Revelation du resultat
    * Fin du jeu
    * Etat du jeu
    *  -> Affichage des modals win || lose 
    * */
-  function generateSecretCode(min, max) {
+
+  function generateSecretResult(min, max) {
     for (var i = 0; i < 4; i++)
-      code[i] = Math.floor(Math.random() * (max - min)) + min;
+    result[i] = Math.floor(Math.random() * (max - min)) + min;
+    console.log(result);
   }
 
-  function revealCode() {
-    for (var i = 0; i < secretSockets.length; i++) {
-      secretSockets[i].className += ' ' + pegs[code[i]];
-      secretSockets[i].innerHTML = ''; // Remove "?" from the socket
+  function revealResult() {
+    for (var i = 0; i < secretCercles.length; i++) {
+      secretCercles[i].className += ' ' + pion[result[i]];
+      secretCercles[i].innerHTML = '';
     }
   }
 
@@ -210,7 +227,16 @@
     for (var i = 0; i < options.length; i++)
       options[i].removeEventListener('click', insertChoice, false);
 
-    revealCode();
+    revealResult();
+  }
+
+  function modalStatus(stat){
+    var n = Math.floor(Math.random() * 4 + 1);
+    console.log(n);
+    var lose_html = '<h2>PERDU</h2><img src="./img/lose'+n+'.gif" class="rounded shadow"><br><br> <button class="btn btn-light" id="hideModal">OK</button> <button id="restartGame" class="btn btn-light">Restart</button>';
+    var win_html = '<h2>GAGNE</h2><img src="./img/win'+n+'.gif" class="rounded shadow"><br><br> <button class="btn btn-light" id="hideModal">OK</button> <button id="restartGame" class="btn btn-light">Restart</button>';
+
+    return (stat ? win_html : lose_html);
   }
 
   function gameState(state) {
@@ -219,11 +245,11 @@
     modalOverlay.className = state;
 
     if (state === 'won') {
-      modalMessage.innerHTML = '<h2>You win</h2> <button class="large" id="hideModal">OK</button> <button id="restartGame" class="large primary">Restart</button>';
+      modalMessage.innerHTML = modalStatus(true);
       document.getElementById('restartGame').onclick = newGame;
       document.getElementById('hideModal').onclick = hideModal;
     } else
-      modalMessage.innerHTML = '<img src="./img/lose1.gif"><br><br> <button class="large" id="hideModal">OK</button> <button id="restartGame" class="large primary">Restart</button>';
+      modalMessage.innerHTML = modalStatus(false);
       document.getElementById('restartGame').onclick = newGame;
       document.getElementById('hideModal').onclick = hideModal;
   }

@@ -20,7 +20,7 @@ body{
 }
 
 .option,
-.socket {
+.circle {
   display: inline-block;
   border-radius: 50%;
   background-color: #aaa;
@@ -36,14 +36,14 @@ body{
 }
 
 .option,
-.code .socket,
-.choice .socket {
+.result .circle,
+.choice .circle {
   width: 40px;
   height: 40px;
   vertical-align: middle;
 }
 
-.code {
+.result {
   border-bottom: 2px solid #333;
 }
 
@@ -55,7 +55,7 @@ body{
   font-size: 16px;
 }
 
-.socket.peg {
+.circle.pion {
   -webkit-animation: fadeIn .4s;
   -o-animation: fadeIn .4s;
   animation: fadeIn .4s;
@@ -64,8 +64,8 @@ body{
 @-webkit-keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-/******************* HINTS *******************/
-#hints {
+/******************* STATUS *******************/
+#status {
   border-top: 2px solid #893417;
   border-bottom: 2px solid #893417;
   border-left: 2px solid #893417;
@@ -74,11 +74,11 @@ body{
   width: 50px;
 }
 
-.hint {
+.stat {
   margin: 12px 0;
 }
 
-.hint .socket {
+.stat .circle {
   width: 10px;
   height: 10px;
 }
@@ -140,7 +140,7 @@ body{
 
 #modalOverlay.lost #modalMessage {
   background-color: #E22D2D;
-  border: 5px dotted #fff;
+  border: 5px solid #fff;
 }
 
 #options {
@@ -163,6 +163,16 @@ button.primary {
 #delete {
   font-size: 16px;
   background-color: #efefef;
+}
+
+/************* Rules *************/
+.rules{
+  border-radius: 30px;
+  background: rgb(255,183,107);
+background: -moz-linear-gradient(-45deg, rgba(255,183,107,1) 0%, rgba(255,167,61,1) 50%, rgba(255,124,0,1) 51%, rgba(255,127,4,1) 100%);
+background: -webkit-linear-gradient(-45deg, rgba(255,183,107,1) 0%,rgba(255,167,61,1) 50%,rgba(255,124,0,1) 51%,rgba(255,127,4,1) 100%);
+background: linear-gradient(135deg, rgba(255,183,107,1) 0%,rgba(255,167,61,1) 50%,rgba(255,124,0,1) 51%,rgba(255,127,4,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', endColorstr='#ff7f04',GradientType=1 );
 }
 
 /************* Colors *************/
