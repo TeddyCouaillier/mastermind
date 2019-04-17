@@ -1,111 +1,146 @@
 (function () {
   'use strict';
 
-  var code = [], // Color sequence the player needs to guess
-      guess = [], // Color sequence of player's guesses
-      options = document.getElementsByClassName('option'),
-      inputRows = document.getElementsByClassName('guess'),
-      hintContainer = document.getElementsByClassName('hint'),
-      secretSockets = document.getElementsByClassName('secret socket'),
-      modalOverlay = document.getElementById('modalOverlay'),
-      modalMessage = document.getElementById('modalMessage'),
-      rowIncrement = 1,
-      hintIncrement = 1,
-      pegs = {
-        1: 'green',
-        2: 'purple',
-        3: 'red',
-        4: 'yellow',
-        5: 'blue',
-        6: 'brown'
-      };
+  /* **************************************
+  *******    INITILISATION DU JEU
+  ************************************** */
+  /* Initialisation des choix
+   * Recuperation de les class/id
+   * Initialisation des couleurs */
 
-  function gameSetup () {
+  var code = [], // Les couleurs disponibles
+    choice = [], // Les couleurs choisies
+    options = document.getElementsByClassName('option'),
+    inputRows = document.getElementsByClassName('choice'),
+    hintContainer = document.getElementsByClassName('hint'),
+    secretSockets = document.getElementsByClassName('secret socket'),
+    modalOverlay = document.getElementById('modalOverlay'),
+    modalMessage = document.getElementById('modalMessage'),
+    rowIncrement = 1,
+    hintIncrement = 1,
+    pegs = {
+      1: 'green',
+      2: 'purple',
+      3: 'red',
+      4: 'yellow',
+      5: 'blue',
+      6: 'brown'
+    };
+
+  /* **************************************
+  *******    INITILISATION DU JEU
+  ************************************** */
+   /* Generation du code secret
+    * Animation de l'ajout de couleurs
+    * Autres options onclic */
+
+  function gameSetup() {
     generateSecretCode(1, 7);
 
-    // Add event listener to every code option button
-    for (var i = 0; i < options.length; i++)
-      options[i].addEventListener('click', insertGuess, false);
+    for (var i = 0; i < options.length; i++) {
+      options[i].addEventListener('click', insertChoice, false);
+    }
 
     document.getElementById('newGame').onclick = newGame;
     document.getElementById('delete').onclick = deleteLast;
   }
 
-  function insertGuess () {
+  /* **************************************
+  *******    INSERTION DES COULEURS
+  ************************************** */
+  /* Ajout de la couleur dans l'emplacement choisi
+   * Comparaison avec le resultat :
+   * win -> affichage du modal gagnant
+   * lose -> deplacement aux choix suivants 
+   * lose -> affichage du modal perdant */
+
+  function insertChoice() {
     var self = this;
     var slots = inputRows[inputRows.length - rowIncrement].getElementsByClassName('socket');
 
-    slots[guess.length].className = slots[guess.length].className + ' peg ' + self.id; // Insert node into page
+    slots[choice.length].className = slots[choice.length].className + ' peg ' + self.id; // Insert node into page
 
-    guess.push(+(self.value));
+    choice.push(+(self.value));
 
-    if (guess.length === 4) {
+    if (choice.length === 4) {
       if (compare())
         gameState('won');
       else
         rowIncrement += 1;
     }
 
-    if ( rowIncrement === inputRows.length + 1 && !compare() )
+    if (rowIncrement === inputRows.length + 1 && !compare())
       gameState('lost');
   }
-    
-  function compare () {
+
+  /* **************************************
+  *******  COMPARAISON DES COULEURS
+  ************************************** */
+  /* Test de la bonne place des couleurs
+   * Test de la presence des couleurs
+   * return vrai si c'est exact, faux sinon */
+
+  function compare() {
     var isMatch = true;
     var codeCopy = code.slice(0);
 
-    // First check if there are any pegs that are the right color in the right place
     for (var i = 0; i < code.length; i++) {
-      if (guess[i] === code[i]) {
+      if (choice[i] === code[i]) {
         insertPeg('hit');
         codeCopy[i] = 0;
-        guess[i] = -1;
+        choice[i] = -1;
       } else
         isMatch = false;
     }
 
-    // Then check if there are any pegs that are the right color but NOT in the right place
     for (var j = 0; j < code.length; j++) {
-      if (codeCopy.indexOf(guess[j]) !== -1) {
+      if (codeCopy.indexOf(choice[j]) !== -1) {
         insertPeg('almost');
-        codeCopy[codeCopy.indexOf(guess[j])] = 0;
+        codeCopy[codeCopy.indexOf(choice[j])] = 0;
       }
     }
 
-    hintIncrement += 1; // Set the next row of hints as available
-    guess = [];         // Reset guess sequence
+    hintIncrement += 1;
+    choice = []; 
 
     return isMatch;
   }
 
-  function insertPeg (type) {
+  /* **************************************
+  *******  COMPARAISON DES COULEURS
+  ************************************** */
+  /* Test de la bonne place des couleurs
+   * Test de la presence des couleurs
+   * return vrai si c'est exact, faux sinon */
+  
+  function insertPeg(type) {
     var sockets = hintContainer[hintContainer.length - hintIncrement].getElementsByClassName('js-hint-socket');
     sockets[0].className = 'socket ' + type;
   }
 
-  function deleteLast () {
-    if (guess.length !== 0) {
+  function deleteLast() {
+    if (choice.length !== 0) {
       var slots = inputRows[inputRows.length - rowIncrement].getElementsByClassName('socket');
-      slots[guess.length - 1].className = 'socket'; // Insert node into page
-      guess.pop();
+      slots[choice.length - 1].className = 'socket'; // Insertion du socket dans la page
+      choice.pop();
     }
   }
 
-  function newGame () {
-    guess = [];        // Reset guess array
+  function newGame() {
+    choice = []; // Reset des choix
     clearBoard();
-    rowIncrement = 1;  // Set the first row of sockets as available for guesses
-    hintIncrement = 1; // Set the first row of sockets as available for hints
+    rowIncrement = 1; // Retour à la ligne 1
+    hintIncrement = 1; // Retour à la case 1
     hideModal();
-    gameSetup();           // Prepare the game
+    gameSetup(); // Initialise le jeu
   }
 
-  function hideModal () {
+  function hideModal() {
     modalOverlay.className = '';
   }
 
-  function clearBoard () {
-    // Clear the guess sockets
+  function clearBoard() {
+    // Nettoie le jeu
     for (var i = 0; i < inputRows.length; i++) {
       inputRows[i].innerHTML = '';
       for (var j = 0; j < 4; j++) {
@@ -115,7 +150,7 @@
       }
     }
 
-    // Clear the hint sockets
+    // Nettoie les sockets
     for (var i = 0; i < hintContainer.length; i++) {
       var socketCollection = hintContainer[i].getElementsByClassName('socket');
       for (var j = 0; j < 4; j++) {
@@ -123,52 +158,49 @@
       }
     }
 
-    // Reset secret code sockets
+    // Reset le code secret
     for (var i = 0; i < secretSockets.length; i++) {
       secretSockets[i].className = 'secret socket';
       secretSockets[i].innerHTML = '?';
     }
 
-    document.getElementsByTagName('body')[0].className = ''; // Reset background
+    document.getElementsByTagName('body')[0].className = '';
   }
 
-  // Creates a color sequence that the player needs to guess
-  function generateSecretCode (min, max) {
+  function generateSecretCode(min, max) {
     for (var i = 0; i < 4; i++)
       code[i] = Math.floor(Math.random() * (max - min)) + min;
   }
 
-  // Once the player runs out of guesses or crack the code - the sequence is revealed
-  function revealCode () {
+  function revealCode() {
     for (var i = 0; i < secretSockets.length; i++) {
       secretSockets[i].className += ' ' + pegs[code[i]];
       secretSockets[i].innerHTML = ''; // Remove "?" from the socket
     }
   }
 
-  function gameOver () {
-    // Disable color options
+  function gameOver() {
     for (var i = 0; i < options.length; i++)
-      options[i].removeEventListener('click', insertGuess, false);
+      options[i].removeEventListener('click', insertChoice, false);
 
     revealCode();
   }
 
-  function gameState (state) {
+  function gameState(state) {
     gameOver();
     document.getElementsByTagName('body')[0].className = state;
     modalOverlay.className = state;
 
     if (state === 'won') {
-      modalMessage.innerHTML = '<h2>You cracked the code!</h2> <p>Great! You are awesome! You should feel good now...</p> <button class="large" id="hideModal">OK</button> <button id="restartGame" class="large primary">Restart</button>';
+      modalMessage.innerHTML = '<h2>You win</h2> <button class="large" id="hideModal">OK</button> <button id="restartGame" class="large primary">Restart</button>';
       document.getElementById('restartGame').onclick = newGame;
       document.getElementById('hideModal').onclick = hideModal;
     } else
-      
+
       modalMessage.innerHTML = '<img src="./img/lose1.gif"><br><br> <button class="large" id="hideModal">OK</button> <button id="restartGame" class="large primary">Restart</button>';
-      document.getElementById('restartGame').onclick = newGame;
-      document.getElementById('hideModal').onclick = hideModal;
+    document.getElementById('restartGame').onclick = newGame;
+    document.getElementById('hideModal').onclick = hideModal;
   }
 
-  gameSetup(); // Run the game
+  gameSetup(); 
 }());
