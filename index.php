@@ -24,7 +24,8 @@
 </head>
 
 <body>
-    <div class="row mx-auto">
+    <div id="levels">Levels</div>
+    <div class="row mx-auto" id="main">
         <div class="col-lg-4"></div>
         <div class="col">
             <div class="text-center">
