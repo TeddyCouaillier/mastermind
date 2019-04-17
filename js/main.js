@@ -1,11 +1,3 @@
-/* Début de test niveaux
-
-  function launchS(){
-  var preload = document.getElementById('preload');
-  preload.style.display = "none";
-  document.getElementById('main').style.display = "block";
-}*/
-  
   /* *************************************************
   *************         INDEX
   ************************************************* */

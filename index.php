@@ -24,13 +24,7 @@
 </head>
 
 <body>
-    <!--  <div class="d-flex flex-column justify-content-center align-items-center niveau">
-    <div class="text-center" class="preload"><button class="btn btn-danger my-5" onclick="launch()">FACILE</div>
-    <div class="text-center" id="preload"><button class="btn btn-danger my-5" onclick="launch()">NORMAL</div>
-    <div class="text-center" id="preload"><button class="btn btn-danger my-5" onclick="launch()">DIFFICILE</div>
-    </div>
-   -->
-    <div class="row mx-auto" id="main">
+    <div class="row mx-auto">
         <div class="col-lg-4"></div>
         <div class="col">
             <div class="text-center">
