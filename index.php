@@ -24,36 +24,39 @@
 </head>
 
 <body>
+    <!-- //////////////////////////////////////
+    /////             LEVELS
+    /////////////////////////////////////// -->
     <div class="container text-center mt-3" id="level">
-    <form action="#" method="get">
-        <button type="submit" class="btn btn-light text-success mx-2" name="level" value="easy">Easy</button>
-        <button type="submit" class="btn btn-light text-secondary mx-2" name="level" value="normal">Normal</button>
-        <button type="submit" class="btn btn-light text-danger mx-2" name="level" value="hard">Hard</button>
-    </form>
-    <hr>
-</div>
+        <form action="#" method="get">
+            <button type="submit" class="btn btn-light text-success mx-2" name="level" value="easy">Easy</button>
+            <button type="submit" class="btn btn-light text-secondary mx-2" name="level" value="normal">Normal</button>
+            <button type="submit" class="btn btn-light text-danger mx-2" name="level" value="hard">Hard</button>
+        </form>
+        <hr>
+    </div>
     <?php 
     if(isset($_GET['level'])){
         if($_GET['level'] == "easy" || $_GET['level'] == "normal" || $_GET['level'] == "hard"){
     ?>
     <div class="row mx-auto" id="main">
         <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center text-center">
-            
-                <p><u> Point par niveau : </u><br>
-                <small><ul class="list-group my-1">
-                    <li class="list-group-item">Easy : x0.5</li>
-                    <li class="list-group-item">Normal : x1</li>
-                    <li class="list-group-item">Hard : x2</li>
-        </ul></small><br>
+            <p><u> Point par niveau : </u><br>
+                <small>
+                    <ul class="list-group my-1">
+                        <li class="list-group-item">Easy : x0.5</li>
+                        <li class="list-group-item">Normal : x1</li>
+                        <li class="list-group-item">Hard : x2</li>
+                    </ul>
+                </small><br>
                 <i>Réinitialisation des points lors d'un changement de niveau</i>
-        </p>
-
-
-
+            </p>
         </div>
         <div class="col">
             <div class="text-center">
-                <!-- Restart game -->
+                <!-- //////////////////////////////////////
+                /////          RESTART+SCORE
+                /////////////////////////////////////// -->
                 <button id="newGame" class="btn m-3 yellow font-weight-bold shadow">Restart</button>
                 <h4>Score : <strong><span id="score">0</span></strong></h4>
 

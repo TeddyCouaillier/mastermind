@@ -218,6 +218,7 @@
    * Etat du jeu
    *  -> Affichage des modals win || lose 
    *  -> Ajout des effets sonores
+   *  -> Traitement du score final
    * */
 
   function generateSecretResult(min, max) {
@@ -277,17 +278,23 @@
     modalOverlay.className = state;
     var sound_state = Math.floor(Math.random()*2)+1;
     if (state === 'won') {
+      //Traitement et affichage du score
       score = scoreFinal(score,rowIncrement,options.length);
       scoreSpan.innerHTML = score;
+      //Animation du son
       playSound(true, sound_state);
+      //Affichage du message
       modalMessage.innerHTML = modalStatus(true);
       document.getElementById('restartGame').onclick = newGame;
       document.getElementById('hideModal').onclick = hideModal;
       
     } else{
+      //Traitement et affichage du score
       score -= 25;
       scoreSpan.innerHTML = score;
+      //Animation du son
       playSound(false, sound_state);
+      //Affichage du message
       modalMessage.innerHTML = modalStatus(false);
       document.getElementById('restartGame').onclick = newGame;
       document.getElementById('hideModal').onclick = hideModal;

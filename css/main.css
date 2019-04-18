@@ -8,7 +8,8 @@
  * ---------------    4.STATE      -----------------
  * ---------------    5.END-GAME   -----------------
  * ---------------    6.RULES      -----------------
- * ---------------    7.COLORS     -----------------
+ * ---------------    7.LEVELS     -----------------
+ * ---------------    8.COLORS     -----------------
  * -------------------------------------------------
  */
 
@@ -22,22 +23,6 @@ body{
   background-color: #3bd0fa;
   font-family: Arial, Helvetica, sans-serif;
 }
-
-#level button:hover{
-  transition: all 1s linear;
-}
-
-#level button:nth-of-type(1):hover{
-  background-color: rgba(152, 219, 173, 0.9);
-}
-#level button:nth-of-type(2):hover{
-  background-color: #CCC;
-}
-#level button:nth-of-type(3):hover{
-  background-color: rgba(235, 137, 137, 0.9);
-}
-
-
 
 /* **************************************
 *******           2.GAME
@@ -220,7 +205,24 @@ button.primary {
 }
 
 /* **************************************
-*******           7.COLORS
+*******           7.LEVEL
+************************************** */
+#level button:hover{
+  transition: all 1s linear;
+}
+
+#level button:nth-of-type(1):hover{
+  background-color: rgba(152, 219, 173, 0.9);
+}
+#level button:nth-of-type(2):hover{
+  background-color: #CCC;
+}
+#level button:nth-of-type(3):hover{
+  background-color: rgba(235, 137, 137, 0.9);
+}
+
+/* **************************************
+*******           8.COLORS
 ************************************** */   
 .green { background: #8FBE00; }
 .red { background: #f74541; }
