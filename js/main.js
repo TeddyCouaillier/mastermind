@@ -12,8 +12,9 @@
    * ---------- 8.END GAME               -------------
    * -------------------------------------------------
    */
-  var score = 0;
 
+
+var score = 0;
 (function () {
   'use strict';
 
@@ -216,9 +217,6 @@
    * Revelation du resultat
    * Fin du jeu
    * Etat du jeu
-   *  -> Affichage des modals win || lose 
-   *  -> Ajout des effets sonores
-   *  -> Traitement du score final
    * */
 
   function generateSecretResult(min, max) {
@@ -241,6 +239,7 @@
     revealResult();
   }
 
+  //Affichage du résultat win-lose (choix aléatoire du GIF)
   function modalStatus(stat){
     var n = Math.floor(Math.random() * 4 + 1);
     var lose_html = '<h2>PERDU</h2><img src="./img/lose'+n+'.gif" class="rounded shadow"><br><br> <button class="btn btn-light" id="hideModal">OK</button> <button id="restartGame" class="btn btn-light">Restart</button>';
@@ -248,6 +247,7 @@
     return (stat ? win_html : lose_html);
   }
 
+  //Animations sonores (choix aléatoire du son)
   function playSound(test_state,alea_sound){
     if(test_state === true)
       return alea_sound === 1 ? win1.play() : win2.play();
@@ -255,6 +255,7 @@
       return alea_sound === 1 ? lose1.play() : lose2.play();
   }
 
+  //Calcul du score par partie gagnée
   function scoreFinal(score,row,level){
     switch(level){
       case 4:
@@ -272,6 +273,7 @@
     return score;
   }
 
+  //Etat du jeu (Affichage du modal, animation sonore,traitement du score)
   function gameState(state) {
     gameOver();
     document.getElementsByTagName('body')[0].className = state;

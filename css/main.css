@@ -10,6 +10,8 @@
  * ---------------    6.RULES      -----------------
  * ---------------    7.LEVELS     -----------------
  * ---------------    8.COLORS     -----------------
+ * ---------------    9.PRELOADER  -----------------
+ * ---------------    8.MEDIA Q.   -----------------
  * -------------------------------------------------
  */
 
@@ -21,7 +23,7 @@ body{
   margin: 0;
   transition: background-color .5s ease;
   background-color: #3bd0fa;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Helvetica;
 }
 
 /* **************************************
@@ -233,4 +235,55 @@ button.primary {
 .brown { background: #6b4d39; }
 .white { background: #fff; }
 
+.img_icon{
+  -webkit-animation: rotating 10s linear infinite;
+}
 
+/* **************************************
+*******      9. PRELOADER
+************************************** */   
+.mastermind {
+  font-weight: 900;
+  font-size: 70px;
+  font-family: Verdana;
+	letter-spacing: 2px;
+	text-align: center;
+	color: #f35626;
+	background: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-webkit-animation: hue 10s infinite linear;
+}
+
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}
+
+@-webkit-keyframes rotating {
+  from{
+      -webkit-transform: rotate(0deg);
+  }
+  to{
+      -webkit-transform: rotate(360deg);
+  }
+}
+
+/* **************************************
+*******      10.MEDIA QUERIES
+************************************** */   
+@media screen and (max-width: 567px){
+  .mastermind{
+    font-size: 30px;
+  }
+  .img_icon{
+    width: 80%;
+  }
+  #logo{
+    height: 80vh;
+  }
+}

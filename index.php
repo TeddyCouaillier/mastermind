@@ -155,9 +155,19 @@
     </div>
     <?php 
         }else{
+            // Eviter les faux $_GET
             echo '<div class="text-center"><img src="./img/404.gif" class="img-fluid"></div>';
         }
-    } ?>
+    } else {
+        echo '
+        <div class="d-flex flex-column justify-content-center align-items-center" id="logo">
+        <h1 class="mastermind">MASTERMiND</h1>
+            <img src="./img/icon.png" class="img-fluid rounded-circle img_icon">
+        </div>';
+    }
+    
+    
+    ?>
 
     <!-- //////////////////////////////////////
     /////     DECLARATION DES SCRIPTS
