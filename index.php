@@ -24,13 +24,38 @@
 </head>
 
 <body>
-    <div id="levels">Levels</div>
+    <div class="container text-center mt-3" id="level">
+    <form action="#" method="get">
+        <button type="submit" class="btn btn-light text-success mx-2" name="level" value="easy">Easy</button>
+        <button type="submit" class="btn btn-light text-secondary mx-2" name="level" value="normal">Normal</button>
+        <button type="submit" class="btn btn-light text-danger mx-2" name="level" value="hard">Hard</button>
+    </form>
+    <hr>
+</div>
+    <?php 
+    if(isset($_GET['level'])){
+        if($_GET['level'] == "easy" || $_GET['level'] == "normal" || $_GET['level'] == "hard"){
+    ?>
     <div class="row mx-auto" id="main">
-        <div class="col-lg-4"></div>
+        <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center text-center">
+            
+                <p><u> Point par niveau : </u><br>
+                <small><ul class="list-group my-1">
+                    <li class="list-group-item">Easy : x0.5</li>
+                    <li class="list-group-item">Normal : x1</li>
+                    <li class="list-group-item">Hard : x2</li>
+        </ul></small><br>
+                <i>Réinitialisation des points lors d'un changement de niveau</i>
+        </p>
+
+
+
+        </div>
         <div class="col">
             <div class="text-center">
                 <!-- Restart game -->
                 <button id="newGame" class="btn m-3 yellow font-weight-bold shadow">Restart</button>
+                <h4>Score : <strong><span id="score">0</span></strong></h4>
 
                 <div class="d-flex flex-row justify-content-center ">
                     <!-- //////////////////////////////////////
@@ -87,8 +112,12 @@
                     <button value="2" id="purple" class="btn mx-1 shadow option purple"></button>
                     <button value="3" id="red" class="btn mx-1 shadow option red"></button>
                     <button value="4" id="yellow" class="btn mx-1 shadow option yellow"></button>
-                    <!-- <button value="5" id="blue" class="btn mx-1 shadow option blue"></button>
-                    <button value="6" id="brown" class="btn mx-1 shadow option brown"></button>-->
+                    <?php 
+                    if($_GET['level'] == "normal" || $_GET['level'] == "hard")
+                        echo '<button value="5" id="blue" class="btn mx-1 shadow option blue"></button>';
+                    if($_GET['level'] == "hard")
+                        echo '<button value="6" id="brown" class="btn mx-1 shadow option brown"></button>';
+                    ?>
                     <br><button id="delete" class="btn my-2 shadow"><i class="fas fa-reply"></i></button>
                 </div>
 
@@ -103,11 +132,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 d-flex justify-content-center align-items-center">
             <!-- //////////////////////////////////////
             /////          REGLES DU JEU
             /////////////////////////////////////// -->
-            <div class="m-5 bg-light text-center p-3 rules">
+            <div class="m-2 bg-light text-center p-3 rules">
                 <p class="">
                     <h2>Regle du jeu</h2>
                     Le but du jeu est de deviner le code secret en plusieurs étapes. <br>
@@ -121,6 +150,11 @@
             </div>
         </div>
     </div>
+    <?php 
+        }else{
+            echo '<div class="text-center"><img src="./img/404.gif" class="img-fluid"></div>';
+        }
+    } ?>
 
     <!-- //////////////////////////////////////
     /////     DECLARATION DES SCRIPTS

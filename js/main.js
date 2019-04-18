@@ -12,6 +12,7 @@
    * ---------- 8.END GAME               -------------
    * -------------------------------------------------
    */
+  var score = 0;
 
 (function () {
   'use strict';
@@ -36,6 +37,7 @@
     win2 = document.getElementById('win2'),
     lose1 = document.getElementById('lose1'),
     lose2 = document.getElementById('lose2'),
+    scoreSpan = document.getElementById('score'),score = 0,
     rowIncrement = 1,
     statIncrement = 1,
     pion = {
@@ -46,7 +48,7 @@
       5: 'blue',
       6: 'brown'
     };
-
+    
   /* **************************************
   *******    2.INITIALISATION DU JEU
   ************************************** */
@@ -55,7 +57,7 @@
     * Autres options onclic */
 
   function gameSetup() {
-    generateSecretResult(1, 4);
+    generateSecretResult(1, options.length+1);
 
     for (var i = 0; i < options.length; i++) {
       options[i].addEventListener('click', insertChoice, false);
@@ -252,17 +254,39 @@
       return alea_sound === 1 ? lose1.play() : lose2.play();
   }
 
+  function scoreFinal(score,row,level){
+    switch(level){
+      case 4:
+        score += 45 - row*5;
+        break;
+      case 5:
+        score += 90 - row*10;
+        break;
+      case 6:
+        score += 180 - row*20;
+        break;
+      default:
+        score += 0;
+    }
+    return score;
+  }
+
   function gameState(state) {
     gameOver();
     document.getElementsByTagName('body')[0].className = state;
     modalOverlay.className = state;
     var sound_state = Math.floor(Math.random()*2)+1;
     if (state === 'won') {
+      score = scoreFinal(score,rowIncrement,options.length);
+      scoreSpan.innerHTML = score;
       playSound(true, sound_state);
       modalMessage.innerHTML = modalStatus(true);
       document.getElementById('restartGame').onclick = newGame;
       document.getElementById('hideModal').onclick = hideModal;
+      
     } else{
+      score -= 25;
+      scoreSpan.innerHTML = score;
       playSound(false, sound_state);
       modalMessage.innerHTML = modalStatus(false);
       document.getElementById('restartGame').onclick = newGame;
